@@ -14,62 +14,13 @@ import {
   Image,
   Dimensions,
   Button,
-  PermissionsAndroid,
-  Platform,
 } from 'react-native';
 
-import { launchImageLibrary } from 'react-native-image-picker';
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 
-const requestExternalWritePermission = async () => {
-  if (Platform.OS === 'android') {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'External Storage Write Permission',
-          message: 'App needs write permission',
-        },
-      );
-      // If WRITE_EXTERNAL_STORAGE Permission is granted
-      return granted === PermissionsAndroid.RESULTS.GRANTED;
-    } catch (err) {
-      console.warn(err);
-      alert('Write permission err', err);
-    }
-    return false;
-  } else return true;
-};
 
-const handleImagePicker = (type) => {
-  let options = {
-    mediaType: type,
-    maxWidth: 300,
-    maxHeight: 550,
-    quality: 1,
-  }
-
-  launchImageLibrary(options, (response) => {
-    console.warn('Response = ', response);
-
-    if (response.didCancel) {
-      alert('User cancelled camera picker');
-      return;
-    } else if (response.errorCode == 'camera_unavailable') {
-      alert('Camera not available on device');
-      return;
-    } else if (response.errorCode == 'permission') {
-      alert('Permission not satisfied');
-      return;
-    } else if (response.errorCode == 'others') {
-      alert(response.errorMessage);
-      return;
-    }
-    
-  })
-}
 
 const App = () => {
   
@@ -80,8 +31,6 @@ const App = () => {
   //     setAvatarPath(defaultPath)
   // },[])
 
-  
-
 
   return (
     
@@ -90,7 +39,7 @@ const App = () => {
           activeOpacity={1.0}
           style={styles.avatar}
           
-          onPress={() => alert('hey')}
+          onPress={() => alert('asdf')}
           >
             <View>
             <Image 
@@ -101,7 +50,7 @@ const App = () => {
           </TouchableWithoutFeedback>
           <Button 
           title={'Upload'}
-          onPress={requestExternalWritePermission}
+          onPress={() => alert('asdf')}
           />
         </View>
   );
